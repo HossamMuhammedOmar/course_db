@@ -47,20 +47,6 @@ class _AddCourseState extends State<AddCourse> {
                           : null,
                       onSaved: (input) => _title = input,
                     ),
-                    SizedBox(height: 30.0),
-                    TextFormField(
-                      maxLength: 100,
-                      decoration: InputDecoration(
-                        labelText: 'course description',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                      validator: (input) => input.trim().toString().isEmpty
-                          ? 'please enter the course description'
-                          : null,
-                      onSaved: (input) => _description = input,
-                    ),
                     SizedBox(height: 10.0),
                     TextFormField(
                       keyboardType: TextInputType.number,
@@ -74,6 +60,21 @@ class _AddCourseState extends State<AddCourse> {
                           ? 'please enter the total hours'
                           : null,
                       onSaved: (input) => _hours = int.parse(input),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      maxLength: 250,
+                      maxLines: 7,
+                      decoration: InputDecoration(
+                        labelText: 'course description',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      validator: (input) => input.trim().toString().isEmpty
+                          ? 'please enter the course description'
+                          : null,
+                      onSaved: (input) => _description = input,
                     ),
                     SizedBox(height: 50.0),
                     Container(

@@ -10,7 +10,8 @@ class CoursesList extends StatefulWidget {
 
 class _CoursesListState extends State<CoursesList> {
   _handleIconButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => AddCourse()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddCourse()));
   }
 
   @override
