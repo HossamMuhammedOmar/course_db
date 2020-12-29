@@ -33,8 +33,7 @@ class _AddCourseState extends State<AddCourse> {
           'hours': _hours,
         },
       );
-      int result = await db.insertCourse(courseModel);
-      print('insert data successfuly with id $result');
+      db.insertCourse(courseModel);
       Navigator.of(context).pop();
     }
   }
@@ -65,6 +64,11 @@ class _AddCourseState extends State<AddCourse> {
                           ? 'please enter the course title'
                           : null,
                       onSaved: (input) => _title = input,
+                      onChanged: (input) {
+                        setState(() {
+                          _title = input;
+                        });
+                      },
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
@@ -79,6 +83,11 @@ class _AddCourseState extends State<AddCourse> {
                           ? 'please enter the total hours'
                           : null,
                       onSaved: (input) => _hours = int.parse(input),
+                      onChanged: (input) {
+                        setState(() {
+                          _hours = int.parse(input);
+                        });
+                      },
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
@@ -94,6 +103,11 @@ class _AddCourseState extends State<AddCourse> {
                           ? 'please enter the course description'
                           : null,
                       onSaved: (input) => _description = input,
+                      onChanged: (input) {
+                        setState(() {
+                          _description = input;
+                        });
+                      },
                     ),
                     SizedBox(height: 50.0),
                     Container(

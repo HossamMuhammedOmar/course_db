@@ -1,3 +1,5 @@
+import 'package:course_db/helpers/db_helper.dart';
+import 'package:course_db/models/course_model.dart';
 import 'package:course_db/screens/add_course.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,14 @@ class CoursesList extends StatefulWidget {
 }
 
 class _CoursesListState extends State<CoursesList> {
+  DbHelper db;
+
+  @override
+  void initState() {
+    super.initState();
+    db = DbHelper.instance;
+  }
+
   _handleIconButton() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AddCourse()));
@@ -26,6 +36,27 @@ class _CoursesListState extends State<CoursesList> {
               onPressed: _handleIconButton,
             ),
           ],
+        ),
+        body: FutureBuilder(
+          future: db.getCoursesMapList(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  CourseModel courseModel =
+                      CourseModel.fromMap(snapshot.data[index]);
+                  return ListTile(
+                    title: Text(
+                        '${courseModel.title} - ${courseModel.hours} hours'),
+                    subtitle: Text(courseModel.description),
+                  );
+                },
+              );
+            }
+          },
         ),
       ),
     );

@@ -12,7 +12,7 @@ class CourseModel {
     _description = obj['description'];
   }
 
-  CourseModel.forMap(Map<String, dynamic> data) {
+  CourseModel.fromMap(Map<String, dynamic> data) {
     _id = data['id'];
     _hours = data['hours'];
     _title = data['title'];

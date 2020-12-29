@@ -53,6 +53,18 @@ class DbHelper {
     return result;
   }
 
+  // Convert All Courses data from map to list.
+  Future<List<CourseModel>> getAllCoursesList() async {
+    List<Map<String, dynamic>> courseMapList = await getCoursesMapList();
+    List courseList = [];
+    courseMapList.forEach(
+      (course) {
+        courseList.add(course);
+      },
+    );
+    return courseList;
+  }
+
   // Delete Course from Database.
   Future<int> deleteCourse(CourseModel course) async {
     Database db = await this.db;
