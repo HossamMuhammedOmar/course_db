@@ -1,3 +1,5 @@
+import 'package:course_db/helpers/db_helper.dart';
+import 'package:course_db/models/course_model.dart';
 import 'package:flutter/material.dart';
 
 class AddCourse extends StatefulWidget {
@@ -12,11 +14,28 @@ class _AddCourseState extends State<AddCourse> {
   String _title;
   String _description;
   int _hours;
+  DbHelper db;
+  CourseModel courseModel;
 
-  _submitCourse() {
+  @override
+  void initState() {
+    super.initState();
+    db = DbHelper.instance;
+  }
+
+  _submitCourse() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print('title: $_title, description: $_description, total hours: $_hours');
+      courseModel = CourseModel(
+        {
+          'title': _title,
+          'description': _description,
+          'hours': _hours,
+        },
+      );
+      int result = await db.insertCourse(courseModel);
+      print('insert data successfuly with id $result');
+      Navigator.of(context).pop();
     }
   }
 
