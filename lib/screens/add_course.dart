@@ -1,5 +1,6 @@
 import 'package:course_db/helpers/db_helper.dart';
 import 'package:course_db/models/course_model.dart';
+import 'package:course_db/screens/courses_list.dart';
 import 'package:flutter/material.dart';
 
 class AddCourse extends StatefulWidget {
@@ -34,7 +35,7 @@ class _AddCourseState extends State<AddCourse> {
         },
       );
       db.insertCourse(courseModel);
-      Navigator.of(context).pop();
+      Navigator.pop(context);
     }
   }
 

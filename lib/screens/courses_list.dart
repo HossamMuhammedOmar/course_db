@@ -16,7 +16,9 @@ class _CoursesListState extends State<CoursesList> {
   @override
   void initState() {
     super.initState();
-    db = DbHelper.instance;
+    setState(() {
+      db = DbHelper.instance;
+    });
   }
 
   _handleIconButton() {
@@ -52,6 +54,17 @@ class _CoursesListState extends State<CoursesList> {
                     title: Text(
                         '${courseModel.title} - ${courseModel.hours} hours'),
                     subtitle: Text(courseModel.description),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Color(0xffe74c3c),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          db.deleteCourse(courseModel);
+                        });
+                      },
+                    ),
                   );
                 },
               );
