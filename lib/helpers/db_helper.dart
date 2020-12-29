@@ -5,18 +5,18 @@ class DbHelper {
   static final DbHelper instance = DbHelper._instance();
   DbHelper._instance();
   static Database _db;
-  String courseTable = 'course_table';
-  String colId = 'id';
-  String colTitle = 'title';
-  String colDescription = 'description';
-  String colHours = 'hours';
+  String _courseTable = 'course_table';
+  String _colId = 'id';
+  String _colTitle = 'title';
+  String _colDescription = 'description';
+  String _colHours = 'hours';
   // Course Table
   // id | title | description | hours
   // 0  |   ''  |     ''      |    10
   // 1  |   ''  |     ''      |    45
   // 2  |   ''  |     ''      |    30
 
-  get db async {
+  Future<Database> get db async {
     if (_db == null) {
       _db = await initDb();
     }
@@ -25,8 +25,13 @@ class DbHelper {
 
   initDb() async {
     String path = join(await getDatabasesPath(), 'course.db');
-    openDatabase(path, version: 1, onCreate: _createDb);
+    final courseDb = await openDatabase(path, version: 1, onCreate: _createDb);
+    return courseDb;
   }
 
-  _createDb(Database db, version) {}
+  _createDb(Database db, int version) {
+    db.execute(
+      'CREATE TABLE $_courseTable($_colId INTEGER PRIMARY KEY AUTOINCREMENT, $_colTitle TEXT, $_colDescription TEXT, $_colHours INTEGER)',
+    );
+  }
 }
